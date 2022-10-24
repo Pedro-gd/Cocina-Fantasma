@@ -1,0 +1,40 @@
+<div class="limiter">
+  <div class="container-login100" >
+    <div class="wrap-login100">
+      
+      <span class="login100-form-title p-b-41">
+        Account Login
+      </span>
+      <form class="login100-form  example-form" [formGroup]="form"  (ngSubmit)="login($event)">
+        <br><br>
+        <mat-form-field class="wrap-input100" appearance="fill">
+          <mat-label>Username</mat-label>
+          <input matInput placeholder="Type your email" type="email" formControlName='email'>
+          <mat-icon matSuffix>account_circle</mat-icon>
+          <mat-error *ngIf="form.controls.email.hasError('email') && !form.controls.email.hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="form.controls.email.hasError('required')">
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+       <br><br>
+        <mat-form-field class=" wrap-input100" appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput  placeholder="Type your password" type="password" formControlName='password'>
+          <mat-icon matSuffix>lock_outline</mat-icon>
+          <mat-error *ngIf="form.controls.password.hasError('required')">
+            Password is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <br><br>
+
+        <div class="container-login100-form-btn m-t-32">
+          <button type="submit" class="login100-form-btn"> Login </button>
+        </div>
+        <br><br>
+      </form>
+
+    </div>
+  </div>
+</div>
