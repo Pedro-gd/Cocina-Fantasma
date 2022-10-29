@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AngularMaterialModule } from './angular-material.module';
@@ -12,13 +12,22 @@ import { AppComponent } from './app.component';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { RegisterComponent } from './components/register/register.component';
 import { PagoComponent } from './components/pago/pago.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { ItemProductComponent } from './components/item-product/item-product.component';
+import { CartProductComponent } from './components/cart-product/cart-product.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LogInComponent,
     RegisterComponent,
-    PagoComponent
+    PagoComponent,
+    HeaderComponent,
+    FooterComponent,
+    ItemProductComponent,
+    CartProductComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +39,7 @@ import { PagoComponent } from './components/pago/pago.component';
     FlexLayoutModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

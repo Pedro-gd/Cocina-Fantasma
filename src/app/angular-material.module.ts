@@ -33,6 +33,10 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+//paypal
+import { NgxPayPalModule } from 'ngx-paypal';
+import { NgxSpinnerModule } from "ngx-spinner";
+
 const materialModules = [
   CdkTreeModule,
   MatAutocompleteModule,
@@ -65,7 +69,9 @@ const materialModules = [
   MatGridListModule,
   MatRadioModule,
   MatDatepickerModule,
-  MatTooltipModule
+  MatTooltipModule,
+  NgxPayPalModule,
+  NgxSpinnerModule
 ];
 @NgModule({
   imports: [

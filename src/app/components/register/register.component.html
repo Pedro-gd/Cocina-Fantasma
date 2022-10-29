@@ -1,4 +1,4 @@
-<div class="limiter">
+<!--<div class="limiter">
   <div class="container-login100" >
     <div class="wrap-login100">
       
@@ -42,5 +42,20 @@
 
     </div>
   </div>
+</div>-->
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-3" *ngFor="let product of products">
+              <app-item-product [product]="product"></app-item-product>
+          </div>
+      </div>
+      
+      </div>
+      <div class="col-md-4">
+          <app-pago></app-pago>
+      </div>
+  </div>
 </div>
-  

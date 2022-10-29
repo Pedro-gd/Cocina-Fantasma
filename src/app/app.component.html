@@ -1,21 +1,3 @@
-<!-- Toolbar -->
-<nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  </div>
-  <div class="d-flex">
-
-      <a class="nav-item" mat-button routerLink="login" routerLinkActive="active">Log in</a>
-      &nbsp; &nbsp; &nbsp;
-      <a class="nav-item" mat-button routerLink="register" routerLinkActive="active">Register</a>
-
-   
-  </div>
-
-</nav>
-
-
+<app-header *ngIf="showHead"></app-header>
 <router-outlet></router-outlet>
+<app-footer *ngIf="showHead"></app-footer>
