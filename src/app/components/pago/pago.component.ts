@@ -5,6 +5,7 @@ import { Product } from 'src/app/models/product';
 import { MessageService } from 'src/app/service/pago.service';
 import { StorageService } from 'src/app/service/storage.service';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./pago.component.css']
 })
 export class PagoComponent implements OnInit {
+
   cartItems = [];
   total = 0;
   public payPalConfig?: IPayPalConfig;
@@ -56,7 +58,7 @@ export class PagoComponent implements OnInit {
       item = {
         name: it.productName,
         quantity: it.qty,
-        unit_amount: {value: it.productPrice, currency_code: 'EUR'}
+        unit_amount: {value: it.productPrice, currency_code: 'MXN'}
       };
       items.push(item);
     });
@@ -64,18 +66,18 @@ export class PagoComponent implements OnInit {
   }
   private initConfig(): void {
     this.payPalConfig = {
-      currency: 'EUR',
+      currency: 'MXN',
       clientId: environment.clientId,
       // tslint:disable-next-line: no-angle-bracket-type-assertion
       createOrderOnClient: (data) => <ICreateOrderRequest> {
         intent: 'CAPTURE',
         purchase_units: [{
           amount: {
-            currency_code: 'EUR',
+            currency_code: 'MXN',
             value: this.getTotal().toString(),
             breakdown: {
               item_total: {
-                currency_code: 'EUR',
+                currency_code: 'MXN',
                 value: this.getTotal().toString()
               }
             }
@@ -110,6 +112,10 @@ export class PagoComponent implements OnInit {
       },
       onCancel: (data, actions) => {
         console.log('OnCancel', data, actions);
+        return actions.order.capture().then(function(details) {
+          // This function shows a transaction success message to your buyer.
+          alert('Transaction completed by ' + details.payer.name.given_name);
+        });
       },
       onError: err => {
         console.log('OnError', err);
@@ -133,21 +139,79 @@ export class PagoComponent implements OnInit {
     this.total = 0;
     this.storageService.clear();
   }
+
   deleteItem(i: number): void {
-    if (this.cartItems[i].qty > 1) {
-      this.cartItems[i].qty--;
-    } else {
-      this.cartItems.splice(i, 1);
-    }
+    this.cartItems.splice(i, 1);
     this.total = this.getTotal();
     this.storageService.setCart(this.cartItems);
   }
+
+  incrementoId(id:number):void{
+    this.cartItems.forEach(item => {
+      if (item.productId === id) {
+        item.qty++;
+      }
+    });
+    this.total = this.getTotal();
+    this.storageService.setCart(this.cartItems);
+  }
+
+  decrementoId(id:number){
+    let exist=false;
+    this.cartItems.forEach(item => {
+      if (item.productId === id) {
+        if(item.qty>1){
+          item.qty--;
+        }
+      }
+    });
+    this.total = this.getTotal();
+    this.storageService.setCart(this.cartItems);
+  }
+
   
   openModal(items, amount): void {
-
+    let item='';
+    let i =1;
+    items.forEach(element => {
+     item+='Articulo '+i+'.- '+element.name+' - '+element.quantity+' unidades'+'<br/>';
+     i++;
+    });
+   Swal.fire({
+     position: 'top-end',
+     icon: 'success',
+     title: 'Pago realizado',
+     html: 'Articulos <br/>'+item+'<br/> Total:'+amount.toString(),
+     showConfirmButton: false,
+     timer: 50000
+   })
+   console.log(items);
    // const modalRef = this.modalService.open(ModalComponent);
     //modalRef.componentInstance.items = items;
     //modalRef.componentInstance.amount = amount;
+  }
+message:number;
+  receiveIdSum($event) {
+    this.message = $event
+    this.incrementoId(this.message);
+  }
+  receiveIdRes($event) {
+    this.message = $event
+    this.decrementoId(this.message);
+  }
+  showModal(items, amount){
+    let item;
+     items.forEach(element => {
+      item+=element.name+'\n';
+     });
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Pago realizado',
+      html: 'Articulos </br>'+item+'</br> Total:'+amount.toString(),
+      showConfirmButton: false,
+      timer: 50000
+    })
   }
 }
 

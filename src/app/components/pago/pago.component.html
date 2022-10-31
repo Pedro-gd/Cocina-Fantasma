@@ -1,264 +1,58 @@
-<!--<div class="center-wrapper">
-  <div class="content">
-    <div class="bag">
-      <p class="bag-head"><span style="text-transform: uppercase">Your Bag</span> - 1 item</p>
-    </div>
-    <div class="card">
-      <div class="card-header">
-        Featured
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-1">
-            <img src="http://media-cache-ec2.pinimg.com/550x/c7/02/8f/c7028f260ae030ba66494ee75407192f.jpg"
-              class="product-image image">
-          </div>
-          <div class="col-md-11">
-            <p class="product-code small muted">Product code: SS022592000</p>
-            <h2 class="card-title">Special title treatment</h2>
-            <p class="card-text">An easy-to-use dive computer with freedive mode and air integration.</p>
-            <h4>Precio : $825.00</h4>
-            <div class="row">
-              <div class="col-md-4">
-                <mat-form-field appearance="fill">
-                  <mat-select required>
-                    <mat-option value="option">1</mat-option>
-                    <mat-option value="option">2</mat-option>
-                    <mat-option value="option">3</mat-option>
-                  </mat-select>
-                  <mat-label>
-                    <mat-icon>add_circle</mat-icon> <b> Cantidad</b>
-                  </mat-label>
-                </mat-form-field>
-              </div>
-              <span class="col-md-6"></span>
-              <div class="col-md-2">
-                <button href="#" class="remove">Remove</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="card">
-      <div class="card-header">
-        Featured
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-md-1">
-            <img src="http://media-cache-ec2.pinimg.com/550x/c7/02/8f/c7028f260ae030ba66494ee75407192f.jpg"
-              class="product-image image">
-          </div>
-          <div class="col-md-11">
-            <p class="product-code small muted">Product code: SS022592000</p>
-            <h2 class="card-title">Special title treatment</h2>
-            <p class="card-text">An easy-to-use dive computer with freedive mode and air integration.</p>
-            <h4>Precio : $825.00</h4>
-            <div class="row">
-              <div class="col-md-4">
-                <mat-form-field appearance="fill">
-                  <mat-select required>
-                    <mat-option value="option">1</mat-option>
-                    <mat-option value="option">2</mat-option>
-                    <mat-option value="option">3</mat-option>
-                  </mat-select>
-                  <mat-label>
-                    <mat-icon>add_circle</mat-icon> <b> Cantidad</b>
-                  </mat-label>
-                </mat-form-field>
-              </div>
-              <span class="col-md-6"></span>
-              <div class="col-md-2">
-                <button href="#" class="remove">Remove</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="bag-total">
-      <div class="subtotal">
-        <p class="small">Subtotal:</p>
-        <p class="small">$825.00</p>
-      </div>
-      <div class="delivery">
-        <p class="small">Entrega (Tiempo estimado 30 minutos):<br>
-          <span class="change-delivery">Cambiar la forma de entrega</span>
-        </p>
-        <p class="small">Free</p>
-      </div>
-      <div class="total">
-        <h3>Total:</h3>
-        <h3>$825.00</h3>
-      </div>
-      <button mat-button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="checkout">
-        <mat-icon>lock</mat-icon> 
-        Pagar ahora
-      </button>
-
-    </div>
-    <br><br>
-    <div class="help">
-      <p>Need help? Call free 01234 567 890</p>
-    </div>
+<div  *ngIf="cartItems.length < 1">
+  <div class="alert principal text-center">
+    <h1 class="heading">
+      <mat-icon >shopping_cart</mat-icon> Carrito de compras
+    </h1>
   </div>
-
-</div>
-
-<mat-icon>local_convenience_store</mat-icon>
-<mat-icon>local_shipping</mat-icon>
-
-
-<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Datos de la Tarjeta</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="container">
-
-          <div class="row">
-            <div class="col-md-7">
-
-              <section class="tarjeta" id="tarjeta">
-                <div class="delantera">
-                  <div class="logo-marca" id="logo-marca">
-                    <img src="../../../assets/img/logos/American_Express.svg" alt="">
-                  </div>
-                  <img src="../../../assets/img/chip-tarjeta.png" class="chip" alt="">
-                  <div class="datos">
-                    <div class="grupo" id="numero">
-                      <p class="label">Número Tarjeta</p>
-                      <p class="numero">#### #### #### ####</p>
-                    </div>
-                    <div class="flexbox">
-                      <div class="grupo" id="nombre">
-                        <p class="label">Nombre Tarjeta</p>
-                        <p class="nombre">Jhon Doe</p>
-                      </div>
-
-                      <div class="grupo" id="expiracion">
-                        <p class="label">Expiracion</p>
-                        <p class="expiracion"><span class="mes">MM</span> / <span class="year">AA</span></p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="trasera">
-                  <div class="barra-magnetica"></div>
-                  <div class="datos">
-                    <div class="grupo" id="firma">
-                      <p class="label">Firma</p>
-                      <div class="firma">
-                        <p></p>
-                      </div>
-                    </div>
-                    <div class="grupo" id="ccv">
-                      <p class="label">CCV</p>
-                      <p class="ccv"></p>
-                    </div>
-                  </div>
-                  <p class="leyenda">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus exercitationem,
-                    voluptates illo.</p>
-                  <a href="#" class="link-banco">www.tubanco.com</a>
-                </div>
-              </section>
-
-              <div class="contenedor-btn">
-                <button class="btn-abrir-formulario" id="btn-abrir-formulario">
-                  <mat-icon>add_card</mat-icon>
-                </button>
-              </div>
-            </div>
-            <div class="col-md-5">
-
-              
-              <form action="" id="formulario-tarjeta" class="formulario-tarjeta">
-                <div class="grupo">
-                  <label for="inputNumero">Número Tarjeta</label>
-                  <input type="text" id="inputNumero" maxlength="19" autocomplete="off">
-                </div>
-                <div class="grupo">
-                  <label for="inputNombre">Nombre</label>
-                  <input type="text" id="inputNombre" maxlength="19" autocomplete="off">
-                </div>
-                <div class="flexbox">
-                  <div class="grupo expira">
-                    <label for="selectMes">Expiracion</label>
-                    <div class="flexbox">
-                      <div class="grupo-select">
-                        <select name="mes" id="selectMes">
-                          <option disabled selected>Mes</option>
-                        </select>
-                        <i class="fas fa-angle-down"></i>
-                      </div>
-                      <div class="grupo-select">
-                        <select name="year" id="selectYear">
-                          <option disabled selected>Año</option>
-                        </select>
-                        <i class="fas fa-angle-down"></i>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="grupo ccv">
-                    <label for="inputCCV">CCV</label>
-                    <input type="text" id="inputCCV" maxlength="3">
-                  </div>
-                </div>
-                <button mat-button type="submit" class="btn-enviar">
-                  <mat-icon>attach_money</mat-icon>
-                  Pagar
-                </button>
-              </form>
-            </div>
-          </div>
-          
-        </div>
-      </div>
+  <div class="row">
+    <div class="col-md-8">
+      <img src='../../../assets/img/carrito-vacio.svg' class="img">
       
     </div>
-  </div>
-</div>
--->
-<div  *ngIf="cartItems.length < 1">
-  <div class="alert alert-info text-center">
-      <h4>Your Cart is Empty</h4>
+    <div class="col-md-4">
+      <h1>¡Su Carrito esta vacio!🙁</h1>
+    </div>
   </div>
 </div>
 
 <div  *ngIf="cartItems.length > 0">
-  <div class="alert alert-info text-center">
-    <h4>Your Cart</h4>
+  <div class="principal text-center">
+    <h1 class="heading">
+      <mat-icon >shopping_cart</mat-icon> Carrito de compras
+    </h1>
   </div>
-  <div class="tetx-center">
-    
-    <ul class="list-group">
-      <li class="list-group-item"  *ngFor="let item of cartItems; index as i">
-        <div class="row">
-            <div class="col-md-10">
-              <app-cart-product [cartItem]="item"></app-cart-product>
-            </div>
-            <div class="col-md-2">
-                <mat-icon (click)="deleteItem(i)">delete</mat-icon>
-            </div>
-        </div>
-    </li>
-    </ul>
-  </div> 
-  <div class="alert alert-warning text-center">
-    <strong>Total: </strong>{{total}}€
-</div>
-<button class="btn btn-outline-danger btn-block mb-2" (click)="emptyCart()" >
-    <i class="fas fa-ban"></i> Empty Cart
-</button>    
-<ngx-paypal [config]="payPalConfig"></ngx-paypal>
+<div class="row">
+  <div class="col-md-7">
+    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+  </div>
+  <div class="col-md-5">
+    <h2 class="text-center">Resumen del Pedido</h2>
+    <div class="tetx-center"> 
+      <ul class="list-group">
+        <li class="list-group-item item"  *ngFor="let item of cartItems; index as i">
+          <div class="card">
+            <div class="row">
+                <div class="col-md-11">
+                  <app-cart-product [cartItem]="item" (messageEvent)="receiveIdSum($event)" (messageEventR)="receiveIdRes($event)"></app-cart-product>
+                </div>
+                <div class="col-md-1">
+                  <mat-icon class="close" (click)="deleteItem(i)">close</mat-icon>
+                  
+                </div>
+              </div>
+          </div>
+      </li>
+      </ul>
+    </div> 
+    <div class="alert alert-warning text-center">
+      <strong>Total: $</strong>{{total}}
+  </div>
+  <button class="btn btn-outline-danger btn-block mb-2" (click)="emptyCart()" >
+      <mat-icon>remove_shopping_cart</mat-icon> Vaciar Carrito
+  </button> 
+  </div>
+</div>   
+
 </div>
 

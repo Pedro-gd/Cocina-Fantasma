@@ -1,1 +1,44 @@
+<!--
 <p><strong>{{cartItem.productName}} </strong> <strong>({{cartItem.qty}} units:) </strong><strong>Total: {{ cartItem.qty * cartItem.productPrice | number : '1.1-2'}} €</strong></p>
+
+-->
+
+
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="img-box">
+          <img
+          src={{cartItem.imageUrl}}
+          alt="Trendy Pants and Shoes"
+           width="80px"
+           class="rounded mx-auto d-block"
+           style=" margin-top:8%;"
+        />
+        </div>
+      </div>
+      <div class="col-md-8 ">
+        <div class="card-body">
+          <h1 class="card-title">{{cartItem.productName}}</h1>
+          
+            <div class="row">
+              <div class="col-md-2">
+                <button (click)="sendIdRes()"><mat-icon>remove</mat-icon></button>
+              </div>
+              <div class="col-md-2">
+                <h3 class="text-center">
+                  {{cartItem.qty}}
+                </h3>
+              </div>
+              <div class="col-md-2">
+                <button (click)="sendIdSum()"><mat-icon>add</mat-icon></button>
+              </div>
+              <div class="col-md">
+                <h4 class="card-text">
+                  <small class="text-muted">Total: ${{ cartItem.qty * cartItem.productPrice | number : '1.1-2'}} </small>
+                </h4>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CartItem } from 'src/app/models/cart-item';
 
 
@@ -9,9 +9,19 @@ import { CartItem } from 'src/app/models/cart-item';
 })
 export class CartProductComponent implements OnInit {
   @Input() cartItem: CartItem;
+
+  @Output() messageEvent = new EventEmitter<number>();
+  @Output() messageEventR = new EventEmitter<number>();
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+  sendIdSum() {
+    this.messageEvent.emit(this.cartItem.productId);
+  }
+  sendIdRes() {
+    this.messageEventR.emit(this.cartItem.productId);
   }
 
 }

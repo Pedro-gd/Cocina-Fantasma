@@ -1,0 +1,8 @@
+button {
+    background: none;
+    border: none;
+}
+
+button:hover{
+    color: green;
+}
