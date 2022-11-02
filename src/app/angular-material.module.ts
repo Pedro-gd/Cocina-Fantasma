@@ -32,6 +32,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatStepperModule} from '@angular/material/stepper';
 
 //paypal
 import { NgxPayPalModule } from 'ngx-paypal';
@@ -71,7 +72,8 @@ const materialModules = [
   MatDatepickerModule,
   MatTooltipModule,
   NgxPayPalModule,
-  NgxSpinnerModule
+  NgxSpinnerModule,
+  MatStepperModule
 ];
 @NgModule({
   imports: [

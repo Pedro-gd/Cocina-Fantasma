@@ -13,5 +13,4 @@ export class Product {
         this.imageUrl = imageUrl;
     }
 
-    
 }

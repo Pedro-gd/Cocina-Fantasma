@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
 import { CartItem } from 'src/app/models/cart-item';
 import { Product } from 'src/app/models/product';
@@ -15,17 +16,29 @@ import Swal from 'sweetalert2';
 })
 export class PagoComponent implements OnInit {
 
+  firstFormGroup = this._formBuilder.group({
+    direccion: ['', Validators.required],
+    nombreC: ['', Validators.required],
+    telefono: ['', Validators.required],
+  });
+
   cartItems = [];
   total = 0;
+
   public payPalConfig?: IPayPalConfig;
+  
+  labelPosition: 1 |2| 0 = 0;
+
   constructor
   (    
     private messageService: MessageService,
     private storageService: StorageService,
+    private _formBuilder: FormBuilder
   ) 
   {   }
 
   ngOnInit(): void {
+    
     this.initConfig();
     if (this.storageService.existsCart()) {
       this.cartItems = this.storageService.getCart();
@@ -104,24 +117,30 @@ export class PagoComponent implements OnInit {
         console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point',
         JSON.stringify(data));
         this.openModal(
+          data.payer.email_address,
           data.purchase_units[0].items,
           data.purchase_units[0].amount.value
         );
+        alert(data.payer.address.address_line_1.toString())
         this.emptyCart();
         //this.spinner.hide();
       },
       onCancel: (data, actions) => {
-        console.log('OnCancel', data, actions);
-        return actions.order.capture().then(function(details) {
-          // This function shows a transaction success message to your buyer.
-          alert('Transaction completed by ' + details.payer.name.given_name);
-        });
+        console.log('OnCancel', data, actions,JSON.stringify(data));
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Pago cancelado',
+          showConfirmButton: false,
+          timer: 50000
+        })
       },
       onError: err => {
         console.log('OnError', err);
+        alert(err);
       },
       onClick: (data, actions) => {
-        console.log('onClick', data, actions);
+        console.log('onClick', data, actions,JSON.stringify(data));
       },
     };
   }
@@ -170,7 +189,7 @@ export class PagoComponent implements OnInit {
   }
 
   
-  openModal(items, amount): void {
+  openModal(email,items, amount): void {
     let item='';
     let i =1;
     items.forEach(element => {
@@ -180,7 +199,7 @@ export class PagoComponent implements OnInit {
    Swal.fire({
      position: 'top-end',
      icon: 'success',
-     title: 'Pago realizado',
+     title: 'Pago realizado por '+email,
      html: 'Articulos <br/>'+item+'<br/> Total:'+amount.toString(),
      showConfirmButton: false,
      timer: 50000
@@ -199,19 +218,36 @@ message:number;
     this.message = $event
     this.decrementoId(this.message);
   }
-  showModal(items, amount){
-    let item;
-     items.forEach(element => {
-      item+=element.name+'\n';
-     });
-    Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'Pago realizado',
-      html: 'Articulos </br>'+item+'</br> Total:'+amount.toString(),
-      showConfirmButton: false,
-      timer: 50000
-    })
+  openModalTienda(): void {
+    let sucursal='sucursal 1';
+    let items= this.getItemsList();
+    let amount = this.getTotal();
+    let item='';
+    let i =1;
+    items.forEach(element => {
+     item+='Articulo '+i+'.- '+element.name+' - '+element.quantity+' unidades'+'<br/>';
+     i++;
+    });
+   Swal.fire({
+     position: 'top-end',
+     icon: 'success',
+     title: 'Pago realizado ',
+     html: 'Articulos <br/>'+item+'<br/> Total:'+amount.toString()+'<br/>'+'Recoger pedido en '+sucursal,
+     showConfirmButton: false,
+     timer: 50000
+   })
+   console.log(items);
+   // const modalRef = this.modalService.open(ModalComponent);
+    //modalRef.componentInstance.items = items;
+    //modalRef.componentInstance.amount = amount;
+  }
+
+  prueba(event: Event): any {
+    event.preventDefault();
+    if (this.firstFormGroup.valid) {
+      const value = this.firstFormGroup.value;
+      alert(value.direccion+' '+value.nombreC+' '+value.telefono);
+    }
   }
 }
 

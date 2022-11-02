@@ -7,12 +7,13 @@
   </div>
   <div class="row">
     <div class="col-md-8">
-      <img src='../../../assets/img/carrito-vacio.svg' class="img">
+      <img src='../../../assets/img/carrito-vacio.svg' class="img-fluid img rounded float-end">
       
     </div>
-    <div class="col-md-4">
-      <h1>¡Su Carrito esta vacio!🙁</h1>
-    </div>
+  </div>
+  <div class="text-center">
+    <br>
+    <h1 >¡Su Carrito esta vacio!🙁</h1>
   </div>
 </div>
 
@@ -23,8 +24,63 @@
     </h1>
   </div>
 <div class="row">
-  <div class="col-md-7">
-    <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+  <div class="col-md-7 example-container">
+      <div>
+        <label>¿Qué te gustaría? </label>
+        <mat-radio-group [(ngModel)]="labelPosition">
+          <mat-radio-button value="2">Recoger en tienda</mat-radio-button>
+          <mat-radio-button value="1">Entrega a domicilio</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <br>
+      <div class="text-center purple" *ngIf="labelPosition == 2">
+        <mat-form-field appearance="fill" style="width: 80%;">
+          <mat-label>Sucursal</mat-label>
+          <mat-select>
+            <mat-option value="one">Sucursal 1</mat-option>
+            <mat-option value="two">Sucursal 2</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <button (click)="openModalTienda()">Hacer Pedido</button>
+      </div>
+      <div class="text-center red" *ngIf="labelPosition == 1">
+
+        <mat-stepper orientation="vertical" [linear]="true" #stepper>
+          <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup" (ngSubmit)="prueba($event)">
+              <ng-template matStepLabel>Datos</ng-template>
+              <h3>Llena el formulario con los siguientes datos</h3>
+              <mat-form-field style="width: 80%;" appearance="fill">
+                <mat-label>Nombre</mat-label>
+                <input matInput placeholder="Calle XXX Colonia XXX " formControlName="nombreC" required>
+              </mat-form-field>
+              <mat-form-field style="width: 80%;" appearance="fill">
+                <mat-label>Dirección</mat-label>
+                <input matInput placeholder="Calle XXX Colonia XXX " formControlName="direccion" required>
+              </mat-form-field>
+              <mat-form-field style="width: 80%;" appearance="fill">
+                <mat-label>Telefono</mat-label>
+                <span matPrefix>+1 &nbsp;</span>
+                <input type="tel" matInput placeholder="555-555-1234" formControlName="telefono" required>
+                <mat-icon matSuffix>mode_edit</mat-icon>
+              </mat-form-field>
+              <div>
+                <button mat-button matStepperNext type="submit">Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Pago</ng-template>
+            <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+            </div>
+          </mat-step>
+        </mat-stepper>
+        
+      </div>
+
   </div>
   <div class="col-md-5">
     <h2 class="text-center">Resumen del Pedido</h2>
