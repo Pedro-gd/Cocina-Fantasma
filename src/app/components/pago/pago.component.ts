@@ -2,11 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
 import { CartItem } from 'src/app/models/cart-item';
+import { Domicilio } from 'src/app/models/domicilio';
+import { Pago } from 'src/app/models/pago';
 import { Product } from 'src/app/models/product';
 import { MessageService } from 'src/app/service/pago.service';
 import { StorageService } from 'src/app/service/storage.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
+import { DomicilioService } from '../_service/domicilio.service';
+import { PagoService } from '../_service/pago.service';
 
 
 @Component({
@@ -15,6 +19,14 @@ import Swal from 'sweetalert2';
   styleUrls: ['./pago.component.css']
 })
 export class PagoComponent implements OnInit {
+
+  amount: any[];
+  amount2: any[];
+  element: string;
+  correo: string;
+  pagoModal: Pago;
+  domicilioModal: Domicilio;
+  valor = 0;
 
   firstFormGroup = this._formBuilder.group({
     direccion: ['', Validators.required],
@@ -35,7 +47,9 @@ export class PagoComponent implements OnInit {
   (    
     private messageService: MessageService,
     private storageService: StorageService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private servicePago: PagoService,
+    private serviceDomicilio: DomicilioService
   ) 
   {   }
 
@@ -118,6 +132,20 @@ export class PagoComponent implements OnInit {
       onClientAuthorization: (data) => {
         console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point',
         JSON.stringify(data));
+
+        this.amount2 = data.purchase_units[0].items;
+        this.amount = data.purchase_units[0].items;
+        this.element = data.purchase_units[0].amount.value;
+        this.correo = data.payer.email_address;
+
+
+        this.amount2.forEach(elements => {
+            this.pagoModal = new Pago('', "23/4/20", this.amount[this.valor].unit_amount.value, elements.name, this.correo.toString());
+            console.log();
+            this.valor++;
+          this.servicePago.create(this.pagoModal).subscribe(data => { console.log(data) });
+        });
+
         this.openModal(
           data.payer.email_address,
           data.purchase_units[0].items,
@@ -248,6 +276,8 @@ message:number;
     event.preventDefault();
     if (this.firstFormGroup.valid) {
       const value = this.firstFormGroup.value;
+      this.domicilioModal = new Domicilio('',value.direccion, value.nombreC, value.telefono);
+      this.serviceDomicilio.create(this.domicilioModal).subscribe(data => { console.log(data) });
       alert(value.direccion+' '+value.nombreC+' '+value.telefono);
     }
   }
