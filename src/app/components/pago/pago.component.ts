@@ -21,6 +21,8 @@ export class PagoComponent implements OnInit {
     nombreC: ['', Validators.required],
     telefono: ['', Validators.required],
   });
+  
+  sucursales = [{"id": 1, "Direccion": "minivan", "nombre": "Sucursal 1",},{"id": 2,"Direccion": "minivan","nombre": "Sucursal 2",}];
 
   cartItems = [];
   total = 0;

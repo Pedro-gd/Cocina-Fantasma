@@ -34,11 +34,11 @@
       </div>
       <br>
       <div class="text-center purple" *ngIf="labelPosition == 2">
-        <mat-form-field appearance="fill" style="width: 80%;">
+        
+        <mat-form-field appearance="fill" style="width: 80%;" >
           <mat-label>Sucursal</mat-label>
-          <mat-select>
-            <mat-option value="one">Sucursal 1</mat-option>
-            <mat-option value="two">Sucursal 2</mat-option>
+          <mat-select >
+            <mat-option *ngFor="let s of sucursales" value={{s.id}}>{{s.nombre}}</mat-option>
           </mat-select>
         </mat-form-field>
         <br>

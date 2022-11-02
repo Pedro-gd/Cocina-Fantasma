@@ -1,3 +1,4 @@
+<!--
 <div class="card text-center mb-3">
     <img [src]="product.imageUrl" class="card-img-top">
     <div class="card-body">
@@ -7,3 +8,18 @@
       <button class="btn btn-outline-success" (click)="addToCart()"  > Add to Cart</button>
     </div>
   </div>
+-->
+<div class="box-container">
+  <div class="box" >
+    <img [src]="product.imageUrl">
+    <div class="content">
+        <h3>{{product.name}}</h3>
+        <p>{{product.description}}</p>
+        <p>{{product.price}}€</p>
+        <div class="d-grid gap-2 col-6 mx-auto">
+          <button class="btn btn-outline-success" (click)="addToCart()"><mat-icon>add_shopping_cart</mat-icon>Agregar al carrito</button>
+        </div>
+        
+    </div>
+</div>
+</div>
